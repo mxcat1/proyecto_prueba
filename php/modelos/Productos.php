@@ -20,7 +20,7 @@ class Productos extends conexion_dbfe_a {
     public function listar_productos(){
         $sql="select P.Descripcion_Producto,P.Stock_Minimo,P.Stock_Actual,P.Estado_Producto,DM.Precio_Unitario from productos P
                     inner join detalle_movimientos DM on P.Codigo_Producto=DM.Codigo_Producto
-                    group by P.Descripcion_Producto limit 0,20D";
+                    group by P.Descripcion_Producto limit 0,20";
         $consu=$this->conexion_db->prepare($sql);
         $consu->execute();
         $resultado=$consu->get_result();

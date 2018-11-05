@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1:3306
--- Tiempo de generación: 08-10-2018 a las 22:59:29
+-- Tiempo de generación: 04-11-2018 a las 21:13:14
 -- Versión del servidor: 5.7.19
 -- Versión de PHP: 7.1.9
 
@@ -45,6 +45,16 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `compras_prove` (`fecha` VARCHAR(100
           inner join productos P
                 on P.Codigo_Producto=DM.Codigo_Producto where M.Tipo_Movimiento='Compra' and M.Fecha like concat(fecha,'%')
     group by M.Fecha,M.Razon_Social;
+  end$$
+
+DROP PROCEDURE IF EXISTS `det_bol_fac`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `det_bol_fac` (`nro_co` INT, `usu` VARCHAR(255))  begin
+    select M.Numero_Comprobante,M.Razon_Social,P.Descripcion_Producto,DM.Cantidad_Producto,(DM.Cantidad_Producto*DM.Precio_Unitario)Monto from movimientos M
+          inner join detalle_movimientos DM
+               on M.Codigo_Movimiento=DM.Codigo_Movimiento
+          inner join productos P
+               on P.Codigo_Producto=DM.Codigo_Producto
+    where M.Numero_Comprobante=nro_co and M.Razon_Social=usu;
   end$$
 
 DROP PROCEDURE IF EXISTS `mas_vendidos`$$
@@ -1753,7 +1763,8 @@ INSERT INTO `detalle_movimientos` (`Codigo_Movimiento`, `Codigo_Producto`, `Cant
 (450, 761, '1.0000', '10.8000'),
 (450, 761, '0.5000', '10.8000'),
 (450, 210, '0.2500', '8.4000'),
-(450, 475, '1.0000', '1.5000'),
+(450, 475, '1.0000', '1.5000');
+INSERT INTO `detalle_movimientos` (`Codigo_Movimiento`, `Codigo_Producto`, `Cantidad_Producto`, `Precio_Unitario`) VALUES
 (450, 482, '2.0000', '1.0000'),
 (450, 1034, '24.0000', '0.1000'),
 (450, 96, '1.0000', '4.3000'),
@@ -3385,7 +3396,8 @@ INSERT INTO `detalle_movimientos` (`Codigo_Movimiento`, `Codigo_Producto`, `Cant
 (901, 73, '0.5000', '38.0000'),
 (901, 9, '0.5000', '10.0000'),
 (901, 468, '1.0000', '1.0000'),
-(902, 761, '0.2500', '11.6000'),
+(902, 761, '0.2500', '11.6000');
+INSERT INTO `detalle_movimientos` (`Codigo_Movimiento`, `Codigo_Producto`, `Cantidad_Producto`, `Precio_Unitario`) VALUES
 (902, 761, '0.1250', '12.0000'),
 (902, 308, '0.0312', '23.0769'),
 (902, 295, '1.0000', '0.7800'),
@@ -4967,7 +4979,8 @@ INSERT INTO `detalle_movimientos` (`Codigo_Movimiento`, `Codigo_Producto`, `Cant
 (1331, 597, '12.0000', '1.2450'),
 (1331, 598, '12.0000', '1.3366'),
 (1331, 599, '12.0000', '1.5291'),
-(1331, 600, '12.0000', '1.7008'),
+(1331, 600, '12.0000', '1.7008');
+INSERT INTO `detalle_movimientos` (`Codigo_Movimiento`, `Codigo_Producto`, `Cantidad_Producto`, `Precio_Unitario`) VALUES
 (1332, 66, '0.2500', '24.0000'),
 (1332, 761, '0.2500', '11.2000'),
 (1332, 935, '0.1000', '10.0000'),
@@ -6527,7 +6540,8 @@ INSERT INTO `detalle_movimientos` (`Codigo_Movimiento`, `Codigo_Producto`, `Cant
 (1740, 1023, '4.0000', '130.2525'),
 (1740, 378, '1.0000', '47.0600'),
 (1740, 381, '8.0000', '21.8487'),
-(1740, 383, '8.0000', '21.8487'),
+(1740, 383, '8.0000', '21.8487');
+INSERT INTO `detalle_movimientos` (`Codigo_Movimiento`, `Codigo_Producto`, `Cantidad_Producto`, `Precio_Unitario`) VALUES
 (1740, 384, '4.0000', '21.8475'),
 (1740, 409, '8.0000', '21.8487'),
 (1740, 423, '4.0000', '42.0175'),
@@ -8104,7 +8118,8 @@ INSERT INTO `detalle_movimientos` (`Codigo_Movimiento`, `Codigo_Producto`, `Cant
 (2154, 258, '0.2500', '116.0000'),
 (2154, 262, '0.2500', '40.0000'),
 (2154, 292, '2.0000', '-2.0000'),
-(2155, 297, '0.0625', '23.0400'),
+(2155, 297, '0.0625', '23.0400');
+INSERT INTO `detalle_movimientos` (`Codigo_Movimiento`, `Codigo_Producto`, `Cantidad_Producto`, `Precio_Unitario`) VALUES
 (2155, 294, '1.0000', '1.7600'),
 (2156, 412, '0.1250', '21.6000'),
 (2156, 73, '0.0625', '40.0000'),
@@ -9684,7 +9699,8 @@ INSERT INTO `detalle_movimientos` (`Codigo_Movimiento`, `Codigo_Producto`, `Cant
 (2602, 215, '0.1000', '6.0000'),
 (2602, 216, '0.1000', '6.0000'),
 (2602, 96, '1.0000', '4.4000'),
-(2603, 247, '1.0000', '2.7000'),
+(2603, 247, '1.0000', '2.7000');
+INSERT INTO `detalle_movimientos` (`Codigo_Movimiento`, `Codigo_Producto`, `Cantidad_Producto`, `Precio_Unitario`) VALUES
 (2603, 711, '0.0312', '32.0512'),
 (2604, 761, '2.0000', '11.1000'),
 (2605, 309, '0.1250', '23.0400'),
@@ -11263,7 +11279,8 @@ INSERT INTO `detalle_movimientos` (`Codigo_Movimiento`, `Codigo_Producto`, `Cant
 (3048, 466, '3.0000', '1.0000'),
 (3048, 998, '0.5000', '18.2000'),
 (3048, 972, '0.5000', '75.4200'),
-(3048, 258, '0.5000', '128.6600'),
+(3048, 258, '0.5000', '128.6600');
+INSERT INTO `detalle_movimientos` (`Codigo_Movimiento`, `Codigo_Producto`, `Cantidad_Producto`, `Precio_Unitario`) VALUES
 (3048, 262, '0.5000', '44.3600'),
 (3048, 291, '2.0000', '0.8850'),
 (3049, 999, '1.0000', '1.5000'),
@@ -12842,7 +12859,8 @@ INSERT INTO `detalle_movimientos` (`Codigo_Movimiento`, `Codigo_Producto`, `Cant
 (3493, 202, '1.0000', '1.6000'),
 (3493, 487, '1.0000', '1.0000'),
 (3494, 397, '1.0000', '46.0000'),
-(3494, 115, '10.0000', '1.5000'),
+(3494, 115, '10.0000', '1.5000');
+INSERT INTO `detalle_movimientos` (`Codigo_Movimiento`, `Codigo_Producto`, `Cantidad_Producto`, `Precio_Unitario`) VALUES
 (3494, 762, '1.0000', '14.2000'),
 (3494, 761, '2.0000', '11.1000'),
 (3495, 657, '1.0000', '18.0000'),
@@ -14421,7 +14439,8 @@ INSERT INTO `detalle_movimientos` (`Codigo_Movimiento`, `Codigo_Producto`, `Cant
 (3892, 291, '1.0000', '0.8300'),
 (3893, 356, '0.5000', '13.9400'),
 (3893, 291, '1.0000', '0.8300'),
-(3894, 356, '0.5000', '13.9400'),
+(3894, 356, '0.5000', '13.9400');
+INSERT INTO `detalle_movimientos` (`Codigo_Movimiento`, `Codigo_Producto`, `Cantidad_Producto`, `Precio_Unitario`) VALUES
 (3894, 291, '1.0000', '0.8300'),
 (3895, 390, '0.2500', '30.0000'),
 (3895, 292, '1.0000', '0.5000'),
@@ -16002,7 +16021,8 @@ INSERT INTO `detalle_movimientos` (`Codigo_Movimiento`, `Codigo_Producto`, `Cant
 (4358, 395, '0.1250', '34.2400'),
 (4358, 293, '1.0000', '0.5200'),
 (4358, 222, '0.2500', '4.8000'),
-(4358, 211, '0.2500', '8.0000'),
+(4358, 211, '0.2500', '8.0000');
+INSERT INTO `detalle_movimientos` (`Codigo_Movimiento`, `Codigo_Producto`, `Cantidad_Producto`, `Precio_Unitario`) VALUES
 (4358, 240, '12.0000', '0.0750'),
 (4358, 241, '12.0000', '0.1166'),
 (4358, 484, '2.0000', '1.0000'),
@@ -17583,7 +17603,8 @@ INSERT INTO `detalle_movimientos` (`Codigo_Movimiento`, `Codigo_Producto`, `Cant
 (4780, 935, '0.2500', '6.4000'),
 (4780, 366, '0.2500', '34.3200'),
 (4780, 292, '1.0000', '0.5200'),
-(4781, 1192, '1.0000', '38.0000'),
+(4781, 1192, '1.0000', '38.0000');
+INSERT INTO `detalle_movimientos` (`Codigo_Movimiento`, `Codigo_Producto`, `Cantidad_Producto`, `Precio_Unitario`) VALUES
 (4782, 414, '0.2500', '23.2000'),
 (4782, 414, '0.5000', '23.0000'),
 (4782, 291, '1.0000', '0.8000'),
@@ -19160,7 +19181,8 @@ INSERT INTO `detalle_movimientos` (`Codigo_Movimiento`, `Codigo_Producto`, `Cant
 (5206, 935, '0.2500', '6.4000'),
 (5207, 309, '0.5000', '23.0000'),
 (5207, 291, '1.0000', '0.8000'),
-(5208, 390, '0.1250', '31.7600'),
+(5208, 390, '0.1250', '31.7600');
+INSERT INTO `detalle_movimientos` (`Codigo_Movimiento`, `Codigo_Producto`, `Cantidad_Producto`, `Precio_Unitario`) VALUES
 (5208, 293, '1.0000', '0.5300'),
 (5209, 761, '5.0000', '10.9000'),
 (5209, 370, '0.5000', '34.0000'),
@@ -20738,7 +20760,8 @@ INSERT INTO `detalle_movimientos` (`Codigo_Movimiento`, `Codigo_Producto`, `Cant
 (5653, 465, '2.0000', '1.0000'),
 (5653, 862, '1.0000', '0.5000'),
 (5653, 247, '0.2500', '3.2000'),
-(5653, 482, '1.0000', '1.0000'),
+(5653, 482, '1.0000', '1.0000');
+INSERT INTO `detalle_movimientos` (`Codigo_Movimiento`, `Codigo_Producto`, `Cantidad_Producto`, `Precio_Unitario`) VALUES
 (5653, 652, '0.2500', '40.0000'),
 (5653, 292, '1.0000', '0.5000'),
 (5654, 247, '4.0000', '2.9500'),
@@ -22318,7 +22341,8 @@ INSERT INTO `detalle_movimientos` (`Codigo_Movimiento`, `Codigo_Producto`, `Cant
 (6059, 293, '1.0000', '0.5000'),
 (6060, 761, '0.5000', '11.2000'),
 (6060, 412, '0.2500', '21.6000'),
-(6060, 862, '1.0000', '0.5000'),
+(6060, 862, '1.0000', '0.5000');
+INSERT INTO `detalle_movimientos` (`Codigo_Movimiento`, `Codigo_Producto`, `Cantidad_Producto`, `Precio_Unitario`) VALUES
 (6060, 483, '1.0000', '1.0000'),
 (6060, 481, '1.0000', '1.0000'),
 (6061, 366, '0.1250', '34.2400'),
@@ -23897,7 +23921,8 @@ INSERT INTO `detalle_movimientos` (`Codigo_Movimiento`, `Codigo_Producto`, `Cant
 (6465, 292, '1.0000', '0.5200'),
 (6466, 415, '6.0000', '62.0000'),
 (6466, 761, '6.0000', '11.0000'),
-(6466, 763, '9.0000', '15.0000'),
+(6466, 763, '9.0000', '15.0000');
+INSERT INTO `detalle_movimientos` (`Codigo_Movimiento`, `Codigo_Producto`, `Cantidad_Producto`, `Precio_Unitario`) VALUES
 (6466, 267, '2.0000', '59.8000'),
 (6466, 935, '2.0000', '6.4000'),
 (6466, 465, '15.0000', '1.0000'),
@@ -25477,7 +25502,8 @@ INSERT INTO `detalle_movimientos` (`Codigo_Movimiento`, `Codigo_Producto`, `Cant
 (6843, 862, '1.0000', '0.5000'),
 (6843, 935, '0.5000', '6.4000'),
 (6843, 237, '48.0000', '0.0416'),
-(6843, 239, '24.0000', '0.0666'),
+(6843, 239, '24.0000', '0.0666');
+INSERT INTO `detalle_movimientos` (`Codigo_Movimiento`, `Codigo_Producto`, `Cantidad_Producto`, `Precio_Unitario`) VALUES
 (6844, 164, '1.0000', '26.9000'),
 (6845, 496, '2.0000', '6.0000'),
 (6846, 1090, '4.0000', '8.5000'),
@@ -27055,7 +27081,8 @@ INSERT INTO `detalle_movimientos` (`Codigo_Movimiento`, `Codigo_Producto`, `Cant
 (7248, 761, '1.0000', '10.9000'),
 (7248, 935, '0.5000', '6.4000'),
 (7248, 504, '0.1000', '16.0000'),
-(7248, 504, '0.1000', '16.0000'),
+(7248, 504, '0.1000', '16.0000');
+INSERT INTO `detalle_movimientos` (`Codigo_Movimiento`, `Codigo_Producto`, `Cantidad_Producto`, `Precio_Unitario`) VALUES
 (7249, 70, '0.2500', '80.0000'),
 (7249, 292, '1.0000', '0.5000'),
 (7250, 761, '1.0000', '10.9000'),
@@ -28633,7 +28660,8 @@ INSERT INTO `detalle_movimientos` (`Codigo_Movimiento`, `Codigo_Producto`, `Cant
 (7620, 292, '1.0000', '0.5200'),
 (7621, 761, '2.0000', '10.9000'),
 (7621, 386, '0.1250', '38.4000'),
-(7621, 405, '0.1250', '38.4000'),
+(7621, 405, '0.1250', '38.4000');
+INSERT INTO `detalle_movimientos` (`Codigo_Movimiento`, `Codigo_Producto`, `Cantidad_Producto`, `Precio_Unitario`) VALUES
 (7621, 380, '0.1250', '38.4000'),
 (7621, 465, '1.0000', '1.0000'),
 (7621, 862, '1.0000', '0.5000'),
@@ -30211,7 +30239,8 @@ INSERT INTO `detalle_movimientos` (`Codigo_Movimiento`, `Codigo_Producto`, `Cant
 (8012, 292, '1.0000', '0.5000'),
 (8013, 202, '1.0000', '1.5000'),
 (8013, 761, '0.5000', '11.2000'),
-(8014, 314, '4.0000', '23.0000'),
+(8014, 314, '4.0000', '23.0000');
+INSERT INTO `detalle_movimientos` (`Codigo_Movimiento`, `Codigo_Producto`, `Cantidad_Producto`, `Precio_Unitario`) VALUES
 (8015, 711, '0.2500', '26.0000'),
 (8015, 292, '1.0000', '0.5000'),
 (8016, 317, '0.1250', '23.8400'),
@@ -31789,7 +31818,8 @@ INSERT INTO `detalle_movimientos` (`Codigo_Movimiento`, `Codigo_Producto`, `Cant
 (8413, 862, '1.0000', '0.5000'),
 (8413, 935, '0.2500', '6.4000'),
 (8413, 464, '1.0000', '1.0000'),
-(8413, 465, '1.0000', '1.0000'),
+(8413, 465, '1.0000', '1.0000');
+INSERT INTO `detalle_movimientos` (`Codigo_Movimiento`, `Codigo_Producto`, `Cantidad_Producto`, `Precio_Unitario`) VALUES
 (8413, 481, '1.0000', '1.0000'),
 (8414, 73, '1.0000', '30.0000'),
 (8414, 761, '1.0000', '11.1000'),
@@ -33088,7 +33118,8 @@ INSERT INTO `movimientos` (`Codigo_Movimiento`, `Fecha`, `Tipo_Movimiento`, `Tip
 (797, '2004-12-17', 'Venta', 'Boleta', 1, 12574, 'VARIOS'),
 (798, '2004-12-17', 'Venta', 'Boleta', 1, 12575, 'VARIOS'),
 (799, '2004-12-17', 'Venta', 'Boleta', 1, 12576, 'VARIOS'),
-(800, '2004-12-17', 'Venta', 'Boleta', 1, 12577, 'VARIOS'),
+(800, '2004-12-17', 'Venta', 'Boleta', 1, 12577, 'VARIOS');
+INSERT INTO `movimientos` (`Codigo_Movimiento`, `Fecha`, `Tipo_Movimiento`, `Tipo_Comprobante`, `Serie_Comprobante`, `Numero_Comprobante`, `Razon_Social`) VALUES
 (801, '2004-12-17', 'Venta', 'Boleta', 1, 12578, 'VARIOS'),
 (802, '2004-12-17', 'Venta', 'Boleta', 1, 12579, 'VARIOS'),
 (803, '2004-12-17', 'Venta', 'Boleta', 1, 12580, 'VARIOS'),
@@ -33844,7 +33875,8 @@ INSERT INTO `movimientos` (`Codigo_Movimiento`, `Fecha`, `Tipo_Movimiento`, `Tip
 (1553, '2004-07-19', 'Compra', 'Factura', 1, 20911, 'INFRAQUIMICA S.A.'),
 (1554, '2004-07-21', 'Compra', 'Factura', 23, 28422, 'INDUSTRIAS VENCEDOR S.A.'),
 (1555, '2004-07-22', 'Compra', 'Factura', 23, 28442, 'INDUSTRIAS VENCEDOR S.A.'),
-(1556, '2004-07-22', 'Compra', 'Factura', 4, 6541, 'LAPICES Y CONEXOS S.A.'),
+(1556, '2004-07-22', 'Compra', 'Factura', 4, 6541, 'LAPICES Y CONEXOS S.A.');
+INSERT INTO `movimientos` (`Codigo_Movimiento`, `Fecha`, `Tipo_Movimiento`, `Tipo_Comprobante`, `Serie_Comprobante`, `Numero_Comprobante`, `Razon_Social`) VALUES
 (1557, '2004-12-30', 'Venta', 'Boleta', 1, 13038, 'VARIOS'),
 (1558, '2004-12-30', 'Venta', 'Boleta', 1, 13039, 'VARIOS'),
 (1559, '2004-12-30', 'Venta', 'Boleta', 1, 13040, 'VARIOS'),
@@ -34607,7 +34639,8 @@ INSERT INTO `movimientos` (`Codigo_Movimiento`, `Fecha`, `Tipo_Movimiento`, `Tip
 (2316, '2005-01-17', 'Venta', 'Boleta', 1, 13550, 'VARIOS'),
 (2317, '2005-01-17', 'Venta', 'Boleta', 1, 13551, 'VARIOS'),
 (2318, '2005-01-17', 'Venta', 'Boleta', 1, 13552, 'VARIOS'),
-(2319, '2005-01-17', 'Venta', 'Boleta', 1, 13553, 'VARIOS'),
+(2319, '2005-01-17', 'Venta', 'Boleta', 1, 13553, 'VARIOS');
+INSERT INTO `movimientos` (`Codigo_Movimiento`, `Fecha`, `Tipo_Movimiento`, `Tipo_Comprobante`, `Serie_Comprobante`, `Numero_Comprobante`, `Razon_Social`) VALUES
 (2320, '2005-01-17', 'Venta', 'Factura', 2, 3144, 'WILBER HUARHUA HUAYHUA'),
 (2321, '2005-01-17', 'Venta', 'Factura', 2, 3145, 'WILBER HUARHUA HUAYHUA'),
 (2322, '2005-01-17', 'Venta', 'Boleta', 1, 13554, 'VARIOS'),
@@ -35393,7 +35426,8 @@ INSERT INTO `movimientos` (`Codigo_Movimiento`, `Fecha`, `Tipo_Movimiento`, `Tip
 (3102, '2005-02-04', 'Venta', 'Boleta', 1, 14161, 'VARIOS'),
 (3103, '2005-02-04', 'Venta', 'Factura', 2, 3328, 'HUMBERTO LORENZO  ZOLEZZI CHACON'),
 (3104, '2005-02-04', 'Venta', 'Boleta', 1, 14162, 'VARIOS'),
-(3105, '2005-02-04', 'Venta', 'Boleta', 1, 14163, 'VARIOS'),
+(3105, '2005-02-04', 'Venta', 'Boleta', 1, 14163, 'VARIOS');
+INSERT INTO `movimientos` (`Codigo_Movimiento`, `Fecha`, `Tipo_Movimiento`, `Tipo_Comprobante`, `Serie_Comprobante`, `Numero_Comprobante`, `Razon_Social`) VALUES
 (3106, '2005-02-04', 'Venta', 'Boleta', 1, 14164, 'VARIOS'),
 (3107, '2005-02-04', 'Venta', 'Boleta', 1, 14165, 'VARIOS'),
 (3108, '2005-02-04', 'Venta', 'Boleta', 1, 14166, 'VARIOS'),
@@ -36186,7 +36220,8 @@ INSERT INTO `movimientos` (`Codigo_Movimiento`, `Fecha`, `Tipo_Movimiento`, `Tip
 (3895, '2005-02-24', 'Venta', 'Factura', 2, 3505, 'RICARDO MEDINA AMESQUITA'),
 (3896, '2005-02-24', 'Venta', 'Boleta', 1, 14780, 'VARIOS'),
 (3897, '2005-02-24', 'Venta', 'Boleta', 1, 14781, 'VARIOS'),
-(3898, '2005-02-24', 'Venta', 'Boleta', 1, 14782, 'VARIOS'),
+(3898, '2005-02-24', 'Venta', 'Boleta', 1, 14782, 'VARIOS');
+INSERT INTO `movimientos` (`Codigo_Movimiento`, `Fecha`, `Tipo_Movimiento`, `Tipo_Comprobante`, `Serie_Comprobante`, `Numero_Comprobante`, `Razon_Social`) VALUES
 (3899, '2005-02-24', 'Venta', 'Boleta', 1, 14783, 'VARIOS'),
 (3900, '2005-02-24', 'Venta', 'Boleta', 1, 14784, 'VARIOS'),
 (3901, '2005-02-24', 'Venta', 'Factura', 2, 3506, 'CARPINTERIA SAN JOSE E.I.R.L'),
@@ -36962,7 +36997,8 @@ INSERT INTO `movimientos` (`Codigo_Movimiento`, `Fecha`, `Tipo_Movimiento`, `Tip
 (4671, '2005-03-17', 'Venta', 'Boleta', 1, 15355, 'VARIOS'),
 (4672, '2005-03-17', 'Venta', 'Boleta', 1, 15356, 'MIRIAN LIMA'),
 (4673, '2005-03-17', 'Venta', 'Boleta', 1, 15357, 'MIRIAN LIMA'),
-(4674, '2005-03-18', 'Venta', 'Boleta', 1, 15358, 'VARIOS'),
+(4674, '2005-03-18', 'Venta', 'Boleta', 1, 15358, 'VARIOS');
+INSERT INTO `movimientos` (`Codigo_Movimiento`, `Fecha`, `Tipo_Movimiento`, `Tipo_Comprobante`, `Serie_Comprobante`, `Numero_Comprobante`, `Razon_Social`) VALUES
 (4675, '2005-03-18', 'Venta', 'Boleta', 1, 15359, 'VARIOS'),
 (4676, '2005-03-18', 'Venta', 'Boleta', 1, 15360, 'VARIOS'),
 (4677, '2005-03-18', 'Venta', 'Factura', 2, 3708, 'FUNERARIA MONTESINOS'),
@@ -37702,7 +37738,8 @@ INSERT INTO `movimientos` (`Codigo_Movimiento`, `Fecha`, `Tipo_Movimiento`, `Tip
 (5411, '2005-04-07', 'Venta', 'Factura', 2, 3914, 'CARLOS A RAMOS LAZARTE'),
 (5412, '2005-04-07', 'Venta', 'Boleta', 1, 15795, 'VARIOS'),
 (5413, '2005-04-07', 'Venta', 'Boleta', 1, 15796, 'VARIOS'),
-(5414, '2005-04-07', 'Venta', 'Boleta', 1, 15797, 'VARIOS'),
+(5414, '2005-04-07', 'Venta', 'Boleta', 1, 15797, 'VARIOS');
+INSERT INTO `movimientos` (`Codigo_Movimiento`, `Fecha`, `Tipo_Movimiento`, `Tipo_Comprobante`, `Serie_Comprobante`, `Numero_Comprobante`, `Razon_Social`) VALUES
 (5415, '2005-04-07', 'Venta', 'Boleta', 1, 15798, 'MIRIAN LIMA'),
 (5416, '2005-04-07', 'Venta', 'Boleta', 1, 15799, 'VARIOS'),
 (5417, '2005-04-07', 'Venta', 'Boleta', 1, 15800, 'VARIOS'),
@@ -38488,7 +38525,8 @@ INSERT INTO `movimientos` (`Codigo_Movimiento`, `Fecha`, `Tipo_Movimiento`, `Tip
 (6197, '2005-04-29', 'Venta', 'Boleta', 1, 16408, 'VARIOS'),
 (6198, '2005-04-29', 'Venta', 'Factura', 2, 4081, 'CARIS S. R. L.'),
 (6199, '2005-04-29', 'Venta', 'Boleta', 1, 16409, 'VARIOS'),
-(6200, '2005-04-29', 'Venta', 'Boleta', 1, 16410, 'VARIOS'),
+(6200, '2005-04-29', 'Venta', 'Boleta', 1, 16410, 'VARIOS');
+INSERT INTO `movimientos` (`Codigo_Movimiento`, `Fecha`, `Tipo_Movimiento`, `Tipo_Comprobante`, `Serie_Comprobante`, `Numero_Comprobante`, `Razon_Social`) VALUES
 (6201, '2005-04-29', 'Venta', 'Boleta', 1, 16411, 'VARIOS'),
 (6202, '2005-04-29', 'Venta', 'Factura', 2, 4082, 'DARIO AGUILAR TITE'),
 (6203, '2005-04-29', 'Venta', 'Boleta', 1, 16412, 'VARIOS'),
@@ -39274,7 +39312,8 @@ INSERT INTO `movimientos` (`Codigo_Movimiento`, `Fecha`, `Tipo_Movimiento`, `Tip
 (6983, '2005-05-25', 'Venta', 'Factura', 2, 4270, 'ANICETO CONDORI'),
 (6984, '2005-05-25', 'Venta', 'Boleta', 1, 17006, 'VARIOS'),
 (6985, '2005-05-25', 'Venta', 'Boleta', 1, 17007, 'VARIOS'),
-(6986, '2005-05-25', 'Venta', 'Factura', 2, 4271, 'EXPRESS SE?OR DE LOS MILAGROS S.C.R.L'),
+(6986, '2005-05-25', 'Venta', 'Factura', 2, 4271, 'EXPRESS SE?OR DE LOS MILAGROS S.C.R.L');
+INSERT INTO `movimientos` (`Codigo_Movimiento`, `Fecha`, `Tipo_Movimiento`, `Tipo_Comprobante`, `Serie_Comprobante`, `Numero_Comprobante`, `Razon_Social`) VALUES
 (6987, '2005-05-25', 'Venta', 'Boleta', 1, 17008, 'VARIOS'),
 (6988, '2005-05-25', 'Venta', 'Boleta', 1, 17009, 'VARIOS'),
 (6989, '2005-05-25', 'Venta', 'Boleta', 1, 17010, 'VARIOS'),
@@ -40055,7 +40094,8 @@ INSERT INTO `movimientos` (`Codigo_Movimiento`, `Fecha`, `Tipo_Movimiento`, `Tip
 (7764, '2005-06-22', 'Venta', 'Boleta', 1, 17576, 'VARIOS'),
 (7765, '2005-06-22', 'Venta', 'Factura', 2, 4475, 'AGENCIA FUNERALES SANTA LUCIA'),
 (7766, '2005-06-22', 'Venta', 'Boleta', 1, 17577, 'VARIOS'),
-(7767, '2005-06-22', 'Venta', 'Boleta', 1, 17578, 'VARIOS'),
+(7767, '2005-06-22', 'Venta', 'Boleta', 1, 17578, 'VARIOS');
+INSERT INTO `movimientos` (`Codigo_Movimiento`, `Fecha`, `Tipo_Movimiento`, `Tipo_Comprobante`, `Serie_Comprobante`, `Numero_Comprobante`, `Razon_Social`) VALUES
 (7768, '2005-06-22', 'Compra', 'Factura', 3, 36008, 'BENEDICTO CABRERA FARFAN'),
 (7769, '2005-06-22', 'Venta', 'Boleta', 1, 17579, 'VARIOS'),
 (7770, '2005-06-22', 'Venta', 'Boleta', 1, 17580, 'VARIOS'),
@@ -41738,7 +41778,8 @@ INSERT INTO `productos` (`Codigo_Producto`, `Descripcion_Producto`, `Estado_Prod
 (882, 'TORNILLOS P/M 1 1/2 X  8', 'A', '120.0000', '60.0000'),
 (883, 'TORNILLOS P/M 1 1/2 X  9', 'A', '500.0000', '250.0000'),
 (884, 'TORNILLOS P/M 1 1/2 X 10', 'A', '500.0000', '250.0000'),
-(885, 'TORNILLOS P/M 2  X  8', 'A', '24.0000', '12.0000'),
+(885, 'TORNILLOS P/M 2  X  8', 'A', '24.0000', '12.0000');
+INSERT INTO `productos` (`Codigo_Producto`, `Descripcion_Producto`, `Estado_Producto`, `Stock_Actual`, `Stock_Minimo`) VALUES
 (886, 'TORNILLOS P/M 2  X  9', 'A', '500.0000', '250.0000'),
 (887, 'TORNILLOS P/M 2  X 10', 'A', '500.0000', '250.0000'),
 (888, 'TORNILLOS P/M 2 1/2 X  8', 'A', '24.0000', '12.0000'),
@@ -42044,6 +42085,29 @@ INSERT INTO `productos` (`Codigo_Producto`, `Descripcion_Producto`, `Estado_Prod
 (6374, 'DURALAC TRANS. BRILLANTE PHILAAC', 'A', '0.5000', '0.2500'),
 (6376, 'DURALAC SELLADOR PHILAAC', 'A', '500.0000', '250.0000'),
 (2, 'Tubo PBC de 80 pg', 'A', '10.0000', '20.0000');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `usuarios`
+--
+
+DROP TABLE IF EXISTS `usuarios`;
+CREATE TABLE IF NOT EXISTS `usuarios` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) COLLATE utf8_spanish_ci NOT NULL,
+  `password` varchar(100) COLLATE utf8_spanish_ci NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `usuarios_id_uindex` (`id`),
+  UNIQUE KEY `usuarios_password_uindex` (`password`)
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `usuarios`
+--
+
+INSERT INTO `usuarios` (`id`, `name`, `password`) VALUES
+(1, 'admin', 'admin');
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

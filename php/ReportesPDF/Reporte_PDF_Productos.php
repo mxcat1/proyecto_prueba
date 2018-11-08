@@ -9,7 +9,6 @@ require_once "../modelos/Productos.php";
 require_once "../libs/dompdf/autoload.inc.php";
 use Dompdf\Dompdf;
 $productos=new Productos();
-$inicio=1;
 $array_pro=$productos->mo_pro_stock();
 $html_text= "<style>
                 @page { 

@@ -130,4 +130,97 @@ productos.controller('productosController',['$scope','$http',function (s,h) {
         }
     });
 
+let razon_social=angular.module('razon_social',[]);
+
+razon_social.controller('razon_sController',["$scope","$http",function (s, h) {
+    s.tipo_reporte_rs=0;
+    s.razon_social=[];
+    s.clientes={};
+    s.proveedores={};
+    s.errores=[];
+    s.currentPage = 0;
+    s.pageSize = 50;
+    s.pages = [];
+    s.listar_razon_social=function () {
+        h({
+            method:'POST',
+            url:'php/controladores/Razon_social.php',
+            data:{opcion:'listar_clipro'}
+        })
+            .then(function (data) {
+                s.razon_social=data.data;
+                console.log(data.data)
+                s.tipo_reporte_rs=1;
+        })
+    };
+    s.configPages = function() {
+        s.pages.length = 0;
+        let ini = s.currentPage - 4;
+        let fin = s.currentPage + 5;
+        if (ini < 1) {
+            ini = 1;
+            if (Math.ceil(s.razon_social.length / s.pageSize) > 10)
+                fin = Math.ceil(s.razon_social.length / s.pageSize);
+            else
+                fin = Math.ceil(s.razon_social.length / s.pageSize);
+        } else {
+            if (ini >= Math.ceil(s.razon_social.length / s.pageSize) - 10) {
+                ini = Math.ceil(s.razon_social.length / s.pageSize) - 10;
+                fin = Math.ceil(s.razon_social.length / s.pageSize);
+            }
+        }
+        if (ini < 1) ini = 1;
+        for (let i = ini; i <= fin; i++) {
+            s.pages.push({
+                no: i
+            });
+        }
+
+        if (s.currentPage >= s.pages.length)
+            s.currentPage = s.pages.length - 1;
+    };
+
+    s.setPage = function(index) {
+        s.currentPage = index - 1;
+    };
+
+}])
+    .filter('startFromGrid', function() {
+    return function(input, start) {
+        start = +start;
+        return input.slice(start);
+    }
+});
+
+let movimientos=angular.module('movimientos',[]);
+
+movimientos.controller('movimientosController',['$scope','$http',function (s, h) {
+    s.movimientos={};
+    s.tipo_reporte_m=0;
+    s.errores={};
+    s.datosm=['Compras','Ventas'];
+    s.fecham='';
+    s.totaldinero=function () {
+        let fecha=$('#fecha').val();
+        s.fecham=fecha;
+        h({
+            method:'POST',
+            url:'php/controladores/Movimientos.php',
+            data:{opcion:'totaldinero',fecha:fecha}
+        })
+            .then(function (data) {
+                s.errores=null;
+                s.movimientos=data.data;
+                console.log(data.data)
+            },function (error) {
+                s.errores=error.data;
+            })
+    }
+    s.mostrarform=function () {
+        s.errores=null;
+        s.movimientos=null;
+        s.tipo_reporte_m=1;
+    }
+}]);
+
 

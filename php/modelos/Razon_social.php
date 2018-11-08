@@ -8,7 +8,7 @@
 
 require_once "../conexion/conexion.php";
 
-class Razon_social extends conexion_dbfe {
+class Razon_social extends conexion_dbfe_a {
 
 
     /**
@@ -17,17 +17,15 @@ class Razon_social extends conexion_dbfe {
     public function __construct(){
         parent::__construct();
     }
-    public function clis_provees($inicio){
-        $pagina=($inicio-1)*74;
+    public function clis_provees(){
         $sql="SELECT distinct Razon_Social ,if(Tipo_Movimiento = 'Venta','Cliente','Proveedor') as Tipo 
-              from movimientos order by Razon_Social limit ?,74;";
+              from movimientos order by Razon_Social;";
         $consulta=$this->conexion_db->prepare($sql);
-        $consulta->bind_param("i",$pagina);
         $consulta->execute();
-        $consulta->bind_result($Razon_social,$tipo);
+        $resultado=$consulta->get_result();
 
-        while ($consulta->fetch()){
-            $lista[]=array("Razon_social"=>$Razon_social,"tipo"=>$tipo);
+        while ($fila=$resultado->fetch_assoc()){
+            $lista[]=$fila;
         }
         return $lista;
 
